@@ -1,5 +1,9 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Eurotrip 2026</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Eurotrip 2026">
@@ -65,7 +69,9 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; }
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--fg);
   font-family: 'Inter', system-ui, sans-serif;
@@ -295,6 +301,8 @@ a:hover { text-decoration: underline; }
 .search-box::placeholder { color: var(--fg2); }
 .search-box:focus { outline: 2px solid var(--accent); border-color: transparent; }
 </style>
+</head>
+<body>
 
 <div class="section active" id="sec-home">
   <div class="hero">
@@ -1132,3 +1140,5 @@ renderDocs();
 renderCityInfo();
 renderChecklist();
 </script>
+</body>
+</html>
