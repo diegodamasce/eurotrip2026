@@ -1,0 +1,1134 @@
+<title>Eurotrip 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Eurotrip 2026">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23e85d26'/%3E%3Ctext x='90' y='125' text-anchor='middle' font-size='110' fill='white'%3E✈%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root {
+  --bg: #f5f3ef;
+  --bg2: #ffffff;
+  --fg: #1a1a1a;
+  --fg2: #555;
+  --accent: #e85d26;
+  --accent2: #d14b17;
+  --border: #e0ddd8;
+  --tag-bg: #f0ece6;
+  --check-bg: #e8f5e9;
+  --check-fg: #2e7d32;
+  --nav-bg: #fffdf9;
+  --card-shadow: 0 1px 3px rgba(0,0,0,.06);
+  --city-madrid: #e85d26;
+  --city-barcelona: #c2185b;
+  --city-paris: #1565c0;
+  --city-brussels: #f9a825;
+  --city-amsterdam: #e65100;
+  --city-roma: #6a1b9a;
+  --city-dublin: #2e7d32;
+  --city-edinburgh: #0277bd;
+  --city-lisboa: #00838f;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #121212;
+    --bg2: #1e1e1e;
+    --fg: #e8e6e1;
+    --fg2: #999;
+    --accent: #ff7a45;
+    --accent2: #ff9a6c;
+    --border: #333;
+    --tag-bg: #2a2722;
+    --check-bg: #1b3a1e;
+    --check-fg: #66bb6a;
+    --nav-bg: #181818;
+    --card-shadow: 0 1px 3px rgba(0,0,0,.3);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #121212;
+  --bg2: #1e1e1e;
+  --fg: #e8e6e1;
+  --fg2: #999;
+  --accent: #ff7a45;
+  --accent2: #ff9a6c;
+  --border: #333;
+  --tag-bg: #2a2722;
+  --check-bg: #1b3a1e;
+  --check-fg: #66bb6a;
+  --nav-bg: #181818;
+  --card-shadow: 0 1px 3px rgba(0,0,0,.3);
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 calc(72px + env(safe-area-inset-bottom, 0px));
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: 'Space Grotesk', sans-serif; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* NAV */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0;
+  background: var(--nav-bg);
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-around; align-items: stretch;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1; display: flex; flex-direction: column; align-items: center;
+  gap: 2px; padding: 8px 4px 6px; border: none; background: none;
+  color: var(--fg2); font-size: 10px; font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: color .15s;
+}
+.nav-btn.active { color: var(--accent); }
+.nav-btn svg { width: 22px; height: 22px; }
+
+/* SECTIONS */
+.section { display: none; padding-block: 16px 24px; }
+.section.active { display: block; }
+.section-title {
+  font-size: 22px; font-weight: 700; margin-bottom: 16px;
+  text-wrap: balance;
+}
+
+/* HOME */
+.hero {
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff; border-radius: 16px; padding: 28px 20px;
+  margin-bottom: 20px; text-align: center;
+}
+.hero h1 { font-size: 26px; margin-bottom: 4px; }
+.hero .subtitle { font-size: 14px; opacity: .85; margin-bottom: 20px; }
+.countdown { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cd-item { text-align: center; }
+.cd-num { font-size: 32px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; }
+.cd-label { font-size: 11px; text-transform: uppercase; letter-spacing: .05em; opacity: .8; }
+
+.route-strip {
+  display: flex; gap: 0; overflow-x: auto; padding: 12px 0;
+  -webkit-overflow-scrolling: touch;
+}
+.route-strip::-webkit-scrollbar { display: none; }
+.route-city {
+  display: flex; flex-direction: column; align-items: center;
+  min-width: 72px; position: relative;
+}
+.route-dot {
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid var(--accent); background: var(--bg);
+}
+.route-city.visited .route-dot { background: var(--accent); }
+.route-line {
+  position: absolute; top: 5px; left: calc(50% + 6px);
+  width: calc(100% - 12px); height: 2px; background: var(--border);
+}
+.route-city:last-child .route-line { display: none; }
+.route-name { font-size: 11px; margin-top: 6px; font-weight: 500; color: var(--fg2); }
+.route-dates { font-size: 10px; color: var(--fg2); opacity: .7; }
+
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;
+  margin-top: 16px;
+}
+.stat-card {
+  background: var(--bg2); border-radius: 12px; padding: 14px;
+  text-align: center; border: 1px solid var(--border);
+}
+.stat-num { font-size: 24px; font-weight: 700; font-family: 'Space Grotesk', sans-serif; color: var(--accent); }
+.stat-label { font-size: 11px; color: var(--fg2); margin-top: 2px; }
+
+/* ROTEIRO */
+.day-tabs {
+  display: flex; gap: 6px; overflow-x: auto; padding: 4px 0 12px;
+  -webkit-overflow-scrolling: touch; position: sticky;
+  top: env(safe-area-inset-top, 0px); background: var(--bg); z-index: 50;
+}
+.day-tabs::-webkit-scrollbar { display: none; }
+.day-tab {
+  flex-shrink: 0; padding: 6px 14px; border-radius: 20px;
+  font-size: 12px; font-weight: 500; border: 1px solid var(--border);
+  background: var(--bg2); color: var(--fg2); cursor: pointer;
+  white-space: nowrap; transition: all .15s;
+}
+.day-tab.active {
+  background: var(--accent); color: #fff; border-color: var(--accent);
+}
+.day-content { display: none; }
+.day-content.active { display: block; }
+.day-header {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.day-badge {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  font-size: 11px; font-weight: 600; color: #fff;
+  text-transform: uppercase; letter-spacing: .03em;
+}
+.day-title { font-size: 18px; font-weight: 600; }
+
+.activity {
+  background: var(--bg2); border-radius: 12px; padding: 12px 14px;
+  margin-bottom: 8px; border: 1px solid var(--border);
+  display: flex; gap: 10px; align-items: flex-start;
+  transition: background .15s;
+}
+.activity.checked { background: var(--check-bg); border-color: var(--check-fg); opacity: .75; }
+.activity-check {
+  flex-shrink: 0; width: 22px; height: 22px; border-radius: 6px;
+  border: 2px solid var(--border); background: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  margin-top: 1px; transition: all .15s; color: transparent;
+}
+.activity.checked .activity-check {
+  background: var(--check-fg); border-color: var(--check-fg); color: #fff;
+}
+.activity-body { flex: 1; min-width: 0; }
+.activity-time {
+  font-size: 12px; font-weight: 600; color: var(--accent);
+  font-family: 'Space Grotesk', sans-serif;
+}
+.activity-name { font-weight: 500; }
+.activity-desc { font-size: 13px; color: var(--fg2); margin-top: 2px; }
+.activity-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+.map-link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 12px; color: var(--accent); font-weight: 500;
+  padding: 3px 8px; border-radius: 6px; background: var(--tag-bg);
+}
+.alert-box {
+  background: var(--tag-bg); border-radius: 10px; padding: 10px 14px;
+  margin-bottom: 8px; font-size: 13px; color: var(--fg2);
+  border-left: 3px solid var(--accent);
+}
+.hotel-card {
+  background: var(--bg2); border-radius: 12px; padding: 14px;
+  margin-bottom: 12px; border: 1px solid var(--border);
+}
+.hotel-card h4 { font-size: 14px; margin-bottom: 4px; }
+.hotel-card p { font-size: 13px; color: var(--fg2); }
+
+/* DOCS */
+.doc-group { margin-bottom: 20px; }
+.doc-group h3 { font-size: 16px; margin-bottom: 8px; }
+.doc-item {
+  background: var(--bg2); border-radius: 10px; padding: 12px 14px;
+  margin-bottom: 6px; border: 1px solid var(--border);
+  display: flex; align-items: center; gap: 10px;
+}
+.doc-icon { font-size: 20px; flex-shrink: 0; }
+.doc-info { flex: 1; min-width: 0; }
+.doc-info .name { font-weight: 500; font-size: 14px; }
+.doc-info .status { font-size: 12px; color: var(--fg2); }
+
+/* FINANCEIRO */
+.fin-summary {
+  background: var(--bg2); border-radius: 12px; padding: 16px;
+  margin-bottom: 16px; border: 1px solid var(--border);
+}
+.person-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 10px 0; border-bottom: 1px solid var(--border);
+}
+.person-row:last-child { border-bottom: none; }
+.person-name { font-weight: 500; }
+.person-status { font-size: 13px; font-weight: 600; }
+.person-status.ok { color: var(--check-fg); }
+.person-status.pending { color: var(--accent); }
+
+/* CITY INFO */
+.city-card {
+  background: var(--bg2); border-radius: 12px; padding: 16px;
+  margin-bottom: 12px; border: 1px solid var(--border);
+}
+.city-card h3 {
+  font-size: 16px; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.city-flag { font-size: 22px; }
+.info-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+}
+.info-item { font-size: 13px; }
+.info-label { color: var(--fg2); font-size: 11px; text-transform: uppercase; letter-spacing: .04em; }
+
+/* CHECKLIST */
+.checklist-group { margin-bottom: 20px; }
+.checklist-group h3 { font-size: 16px; margin-bottom: 8px; }
+.check-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 14px; background: var(--bg2); border-radius: 10px;
+  margin-bottom: 6px; border: 1px solid var(--border); cursor: pointer;
+}
+.check-item.done { opacity: .6; text-decoration: line-through; }
+.check-box {
+  width: 20px; height: 20px; border-radius: 5px;
+  border: 2px solid var(--border); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: transparent; transition: all .15s;
+}
+.check-item.done .check-box {
+  background: var(--check-fg); border-color: var(--check-fg); color: #fff;
+}
+.check-text { font-size: 14px; }
+
+/* SEARCH */
+.search-box {
+  width: 100%; padding: 10px 14px; border-radius: 10px;
+  border: 1px solid var(--border); background: var(--bg2);
+  color: var(--fg); font-size: 14px; font-family: inherit;
+  margin-bottom: 12px;
+}
+.search-box::placeholder { color: var(--fg2); }
+.search-box:focus { outline: 2px solid var(--accent); border-color: transparent; }
+</style>
+
+<div class="section active" id="sec-home">
+  <div class="hero">
+    <h1>Eurotrip 2026</h1>
+    <p class="subtitle">14 Nov – 10 Dez · 9 cidades · 26 dias</p>
+    <div class="countdown" id="countdown"></div>
+  </div>
+  <div class="route-strip" id="route-strip"></div>
+  <div class="stats-row">
+    <div class="stat-card"><div class="stat-num">9</div><div class="stat-label">Cidades</div></div>
+    <div class="stat-card"><div class="stat-num">7</div><div class="stat-label">Países</div></div>
+    <div class="stat-card"><div class="stat-num">26</div><div class="stat-label">Dias</div></div>
+  </div>
+</div>
+
+<div class="section" id="sec-roteiro">
+  <h2 class="section-title">Roteiro</h2>
+  <input type="text" class="search-box" id="search-roteiro" placeholder="Buscar lugar, restaurante...">
+  <div class="day-tabs" id="day-tabs"></div>
+  <div id="day-contents"></div>
+</div>
+
+<div class="section" id="sec-docs">
+  <h2 class="section-title">Documentos</h2>
+  <p style="font-size:13px;color:var(--fg2);margin-bottom:16px;">Links para a pasta do Google Drive com passagens, hospedagens e ingressos.</p>
+  <div id="docs-list"></div>
+</div>
+
+<div class="section" id="sec-info">
+  <h2 class="section-title">Info por Cidade</h2>
+  <div id="city-info-list"></div>
+</div>
+
+<div class="section" id="sec-checklist">
+  <h2 class="section-title">Checklist</h2>
+  <div id="checklist-content"></div>
+</div>
+
+<nav class="bottom-nav" id="bottom-nav">
+  <button class="nav-btn active" data-section="home">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>
+    Início
+  </button>
+  <button class="nav-btn" data-section="roteiro">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+    Roteiro
+  </button>
+  <button class="nav-btn" data-section="docs">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2h5l2 3h9a2 2 0 012 2z"/></svg>
+    Docs
+  </button>
+  <button class="nav-btn" data-section="info">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    Info
+  </button>
+  <button class="nav-btn" data-section="checklist">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9,11 12,14 22,4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+    Check
+  </button>
+</nav>
+
+<script>
+// ── DATA ──
+const TRIP_DATA = {
+  startDate: "2026-11-14",
+  endDate: "2026-12-10",
+  cities: [
+    { name: "Madrid", flag: "🇪🇸", dates: "15/11", color: "var(--city-madrid)" },
+    { name: "Barcelona", flag: "🇪🇸", dates: "16-18/11", color: "var(--city-barcelona)" },
+    { name: "Paris", flag: "🇫🇷", dates: "18-20/11", color: "var(--city-paris)" },
+    { name: "Bruxelas", flag: "🇧🇪", dates: "20-21/11", color: "var(--city-brussels)" },
+    { name: "Amsterdam", flag: "🇳🇱", dates: "21-23/11", color: "var(--city-amsterdam)" },
+    { name: "Roma", flag: "🇮🇹", dates: "23-26/11", color: "var(--city-roma)" },
+    { name: "Dublin", flag: "🇮🇪", dates: "26/11-02/12", color: "var(--city-dublin)" },
+    { name: "Edimburgo", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", dates: "02-06/12", color: "var(--city-edinburgh)" },
+    { name: "Lisboa", flag: "🇵🇹", dates: "08-09/12", color: "var(--city-lisboa)" }
+  ],
+  days: [
+    {
+      id: "d14", date: "14/11", dow: "Sáb", city: "Viagem", color: "var(--city-madrid)",
+      title: "Em viagem",
+      hotel: null,
+      activities: [
+        { time: "06:30", name: "Sair de Barbacena", desc: "" },
+        { time: "08:30", name: "Estacionamento Stapar", desc: "Reserva pendente", maps: "" },
+        { time: "16:35", name: "Voo TAP TP74 – GIG → Lisboa", desc: "Noite a bordo" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d15", date: "15/11", dow: "Dom", city: "Madrid", color: "var(--city-madrid)",
+      title: "Chegada + Centro Histórico",
+      hotel: { name: "Hostal Marlasca", address: "Calle de la Cruz 14, 2º andar", checkin: "14h", checkout: "11h30", maps: "https://www.google.com/maps/search/Hostal+Marlasca+Calle+de+la+Cruz+14+Madrid" },
+      activities: [
+        { time: "05:15", name: "Chegada em Lisboa (escala)", desc: "Terminal 1 — imigração EES aqui!" },
+        { time: "07:10", name: "Voo TAP TP1010 – Lisboa → Madrid", desc: "" },
+        { time: "09:30", name: "Chegada Madrid Barajas T2", desc: "Metrô: linha 8 → Nuevos Ministerios → linha 10 até Tribunal → linha 1 até Sol; ~17 km, ~40 min, €4,50 com suplemento aeroporto" },
+        { time: "11:00", name: "Deixar malas no Hostal Marlasca", desc: "", maps: "https://www.google.com/maps/search/Hostal+Marlasca+Madrid" },
+        { time: "11:30", name: "Puerta del Sol", desc: "Km Zero, Urso e Madroño", maps: "https://www.google.com/maps/search/Puerta+del+Sol+Madrid" },
+        { time: "12:00", name: "Plaza Mayor", desc: "", maps: "https://www.google.com/maps/search/Plaza+Mayor+Madrid" },
+        { time: "12:30", name: "🍽️ Mercado de San Miguel", desc: "Bebida: Madrí + Pinkleton & Co. Comida: croquetas Arzabal, Power Paella, Quesoba, Rocambolesc. Frutos do mar: Ostras Sorlut, bocadillo calamares Señor Martín. Pico 13h-15h. Cuidado com batedores de carteira!", maps: "https://www.google.com/maps/search/Mercado+de+San+Miguel+Madrid" },
+        { time: "13:30", name: "Palácio Real + Catedral de la Almudena", desc: "Por fora", maps: "https://www.google.com/maps/search/Palacio+Real+Madrid" },
+        { time: "14:45", name: "Divisão: Meninos → Bernabéu (tour 16h) / Meninas → Santa Ana", desc: "Meninos: metrô Sol → Santiago Bernabéu. Meninas: bar na praça." },
+        { time: "15:00", name: "Plaza de Santa Ana", desc: "100 montaditos (comida boa e barata) ou Tapa Tapa Santa Ana (MUITO BOM! Preferir esse!). Ou Cava Baja.", maps: "https://www.google.com/maps/search/Plaza+de+Santa+Ana+Madrid" },
+        { time: "18:30", name: "Hotel tomar banho", desc: "Meninos chegam" },
+        { time: "20:30", name: "🍽️ Inclán Brutal Bar", desc: "Nota 4.7 (6.000+ avaliações). Paella, tapas, burgers. ~€15-25/pessoa. RESERVADO. Plano B: Taberna El Sur de Huertas.", maps: "https://www.google.com/maps/search/Inclan+Brutal+Bar+Madrid" },
+        { time: "22:00", name: "🍸 Salmon Guru", desc: "Um dos melhores cocktail bars do mundo. Chegar antes das 23h. Opção B: El Tigre Sidra Bar (tapas, cerveja e shots baratos)", maps: "https://www.google.com/maps/search/Salmon+Guru+Calle+Echegaray+21+Madrid" },
+        { time: "00:30", name: "Volta a pé", desc: "Carrefour City (aberto até 1h) para café do trem" }
+      ],
+      alerts: ["Lisboa é a 1ª entrada Schengen — imigração com EES acontece lá, não em Madrid. Com 1h55 de conexão, sigam direto para a fila."]
+    },
+    {
+      id: "d16", date: "16/11", dow: "Seg", city: "Barcelona", color: "var(--city-barcelona)",
+      title: "Madrid → Barcelona + Gótico",
+      hotel: { name: "Airbnb Sagrada Família", address: "Carrer de València 441", checkin: "15h", checkout: "11h", maps: "https://www.google.com/maps/search/Carrer+de+Valencia+441+Barcelona" },
+      activities: [
+        { time: "07:30", name: "Acordar + café na estação", desc: "Check-out com malas prontas desde a noite anterior" },
+        { time: "08:30", name: "A pé até Estação Puerta de Atocha", desc: "1,2 km com malas. Chegar 30-40 min antes. Acesso fecha 2 min antes.", maps: "https://www.google.com/maps/search/Estacion+Madrid+Puerta+de+Atocha" },
+        { time: "09:31", name: "🚄 Trem AVE Madrid → Barcelona Sants", desc: "~620 km, chegada 12h58. Vagão-cafeteria perto do vagão 4." },
+        { time: "12:58", name: "Chegada Barcelona Sants", desc: "Metrô L5 direto até Sagrada Família (~15 min)", maps: "https://www.google.com/maps/search/Barcelona+Sants+train+station" },
+        { time: "14:00", name: "🍽️ Can Pizza Sagrada Familia", desc: "Nota 4,3. Massa 72h, forno de pedra, ~€25/pessoa. Reservar! Opção: Sports Bar.", maps: "https://www.google.com/maps/search/Can+Pizza+Sagrada+Familia+Barcelona" },
+        { time: "15:00", name: "Check-in Airbnb", desc: "" },
+        { time: "16:30", name: "Rooftop Sercotel Rosellón", desc: "Vista Sagrada Família. €7/pessoa, só com reserva, máx 90 min.", maps: "https://www.google.com/maps/search/Sercotel+Rosellon+Barcelona" },
+        { time: "18:00", name: "Passeig de Gràcia", desc: "Casa Milà (La Pedrera) + Casa Batlló por fora", maps: "https://www.google.com/maps/search/Passeig+de+Gracia+Barcelona" },
+        { time: "18:30", name: "Chocolate quente Casa Amatller", desc: "Ao lado da Casa Batlló" },
+        { time: "19:00", name: "Plaça Catalunya e Bairro Gótico", desc: "Catedral → Pont del Bisbe → Plaça del Rei → Plaça Sant Felip Neri", maps: "https://www.google.com/maps/search/Catedral+de+Barcelona" },
+        { time: "20:30", name: "🍽️ El Born / Gótico", desc: "Space Cowboy (nota 4.9, cocktails) ou Manchester Bar (cerveja barata, música de Manchester)", maps: "https://www.google.com/maps/search/Space+Cowboy+Barcelona" },
+        { time: "22:30", name: "🍺 Craft Barcelona", desc: "Carrer del Paradís 4, fronteira Gótico/Born", maps: "https://www.google.com/maps/search/Craft+Barcelona+Carrer+del+Paradis+4" },
+        { time: "00:00", name: "🎶 Sala Apolo (opcional)", desc: "Nasty Mondays: indie, pop, anos 80. Meia-noite às 5h. Uber (metrô fechou).", maps: "https://www.google.com/maps/search/Sala+Apolo+Barcelona" }
+      ],
+      alerts: ["Rooftop Sercotel: agenda abre 15 dias antes (31/10 às 20h de Brasília).", "Metrô de seg a qui: 5h à meia-noite. Depois: NitBus ou Uber."]
+    },
+    {
+      id: "d17", date: "17/11", dow: "Ter", city: "Barcelona", color: "var(--city-barcelona)",
+      title: "Sagrada Família + Praia + Born",
+      hotel: null,
+      activities: [
+        { time: "09:00", name: "☕ La Masovera ou Puigròs", desc: "", maps: "https://www.google.com/maps/search/La+Masovera+Sagrada+Familia+Barcelona" },
+        { time: "10:00", name: "⛪ Sagrada Família", desc: "Ingresso comprado. Entrada pela Carrer de la Marina. Cobrir metade da coxa.", maps: "https://www.google.com/maps/search/Sagrada+Familia+Barcelona" },
+        { time: "11:30", name: "Las Ramblas + Mercado La Boqueria", desc: "Metrô L5→Diagonal→L3→Liceu (~3,5 km)", maps: "https://www.google.com/maps/search/Mercado+La+Boqueria+Barcelona" },
+        { time: "12:45", name: "Monumento a Colombo", desc: "", maps: "https://www.google.com/maps/search/Monumento+a+Colon+Barcelona" },
+        { time: "13:15", name: "🍔 Makamaka Beach Burger Cafe", desc: "Nota 4,3. Maradona Burger + batatas alho parmesão. Sem reserva, chegar cedo.", maps: "https://www.google.com/maps/search/Makamaka+Beach+Burger+Cafe+Barcelona" },
+        { time: "15:15", name: "🏖️ Praia + Peix de Gehry", desc: "Caminhada Passeig Marítim até Port Olímpic (~1,8 km)", maps: "https://www.google.com/maps/search/Port+Olimpic+Barcelona" },
+        { time: "16:30", name: "Arco do Triunfo + Parc de la Ciutadella", desc: "Grátis", maps: "https://www.google.com/maps/search/Arc+de+Triomf+Barcelona" },
+        { time: "17:30", name: "⛪ Basílica Santa Maria del Mar", desc: "Grátis. Passeio pelo Born.", maps: "https://www.google.com/maps/search/Basilica+Santa+Maria+del+Mar+Barcelona" },
+        { time: "19:00", name: "🍸 Monk Barcelona + Nevermind", desc: "Monk: drinks show. Nevermind: bar de skater, grungy, barato.", maps: "https://www.google.com/maps/search/Monk+Barcelona+El+Born" },
+        { time: "20:30", name: "🍽️ Cervecería Catalana", desc: "Nota 4,4, ~€20, sem reserva (~2 km, metrô). Ou Milk Bar & Bistro.", maps: "https://www.google.com/maps/search/Cerveceria+Catalana+Mallorca+236+Barcelona" },
+        { time: "22:30", name: "🍺 L'Ovella Negra", desc: "Cerveja barata, sangria famosa, sinuca e pebolim. Ter 17h-2h30.", maps: "https://www.google.com/maps/search/L%27Ovella+Negra+Sitges+5+Barcelona" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d18", date: "18/11", dow: "Qua", city: "Paris", color: "var(--city-paris)",
+      title: "Barcelona → Paris + Torre Eiffel",
+      hotel: { name: "Hôtel France Eiffel", address: "8 Rue Saint-Charles, 75015", checkin: "14h", checkout: "12h", maps: "https://www.google.com/maps/search/Hotel+France+Eiffel+8+Rue+Saint+Charles+Paris" },
+      activities: [
+        { time: "07:00", name: "☕ Buenas Migas ou La Masovera", desc: "" },
+        { time: "07:45", name: "Check-out", desc: "" },
+        { time: "08:00", name: "Metrô + Aeròbus A1 até aeroporto T1", desc: "Ou Uber direto (2 carros). Bilhete metrô não vale no Aeròbus." },
+        { time: "09:00", name: "Aeroporto T1", desc: "" },
+        { time: "12:10", name: "✈️ Air France AF1349 BCN → Paris CDG", desc: "Chegada 14h10, Terminal 2F" },
+        { time: "14:45", name: "RER B + Linha 6 até Dupleix", desc: "RER B até Denfert-Rochereau + Bir-Hakeim → Charles de Gaulle–Étoile pela 6 → Bastille pela 1 (~30 km). Bilhete aeroporto €14.", maps: "https://www.google.com/maps/search/Dupleix+Metro+Paris" },
+        { time: "16:00", name: "Check-in hotel", desc: "" },
+        { time: "16:30", name: "Torre Eiffel por fora + Champ de Mars", desc: "", maps: "https://www.google.com/maps/search/Tour+Eiffel+Paris" },
+        { time: "17:00", name: "📸 Trocadéro", desc: "A vista clássica da torre", maps: "https://www.google.com/maps/search/Trocadero+Paris" },
+        { time: "18:00", name: "Torre Eiffel — cintila 5 min a cada hora cheia", desc: "" },
+        { time: "18:20", name: "🚢 Cruzeiro Bateaux Parisiens", desc: "Embarque Port de la Bourdonnais, pontão 3. ~€18, ~1h, audioguia PT. Reservado.", maps: "https://www.google.com/maps/search/Bateaux+Parisiens+Paris" },
+        { time: "20:30", name: "🍽️ Bastille / Rue de Lappe", desc: "Le Falstaff (pub casual) ou Café de l'Industrie (brasserie, jovens locais, ~€15-20). Opção B: drinks do Carrefour no hotel.", maps: "https://www.google.com/maps/search/Rue+de+Lappe+Bastille+Paris" },
+        { time: "23:00", name: "Metrô linha 6 de Trocadéro até Dupleix", desc: "E hotel (0,3 km)" }
+      ],
+      alerts: ["Transporte em Paris: bilhetes só digitais — app Île-de-France Mobilités ou Navigo Easy."]
+    },
+    {
+      id: "d19", date: "19/11", dow: "Qui", city: "Paris", color: "var(--city-paris)",
+      title: "Notre-Dame + Louvre + Champs-Élysées",
+      hotel: null,
+      activities: [
+        { time: "08:30", name: "☕ Au Moka ou Bistro Dupleix", desc: "", maps: "https://www.google.com/maps/search/Au+Moka+92+Boulevard+de+Grenelle+Paris" },
+        { time: "09:30", name: "Linha 6 até Denfert-Rochereau + RER B até Luxembourg", desc: "~6 km" },
+        { time: "10:00", name: "Jardin du Luxembourg", desc: "", maps: "https://www.google.com/maps/search/Jardin+du+Luxembourg+Paris" },
+        { time: "11:00", name: "⛪ Notre-Dame", desc: "Grátis. Reservar horário no site evita fila. Sainte-Chapelle por fora.", maps: "https://www.google.com/maps/search/Notre+Dame+de+Paris" },
+        { time: "12:00", name: "Louvre por fora + Tuileries", desc: "Se o mercado de Natal das Tuileries já estiver montado, é aqui.", maps: "https://www.google.com/maps/search/Musee+du+Louvre+Paris" },
+        { time: "13:00", name: "🍽️ Almoço", desc: "Bo&Mie Louvre (padaria 3 andares). Opções: PNY Marais (melhor smash burger de Paris, ~€15-18) ou Blend Argout (artesanal, ~€14-18).", maps: "https://www.google.com/maps/search/PNY+Paris+New+York+Marais" },
+        { time: "14:00", name: "Champs-Élysées até Arco do Triunfo", desc: "Tuileries → Concorde (1,2 km) → Arco (2 km)", maps: "https://www.google.com/maps/search/Arc+de+Triomphe+Paris" },
+        { time: "15:30", name: "Trocadéro + fotos Torre Eiffel", desc: "Pisca de hora em hora a partir de 17h30", maps: "https://www.google.com/maps/search/Trocadero+Paris" },
+        { time: "17:30", name: "Descanso no hotel", desc: "" },
+        { time: "19:00", name: "🍽️ Jantar perto do hotel", desc: "Le Plan B (cerveja artesanal, 11 torneiras) ou Comptoir Principal (sanduíches, hamburguers)", maps: "https://www.google.com/maps/search/Le+Plan+B+bar+Dupleix+Paris" },
+        { time: "20:45", name: "🗼 Subida na Torre Eiffel", desc: "Ingresso marcado para 21h30", maps: "https://www.google.com/maps/search/Tour+Eiffel+Paris" },
+        { time: "23:30", name: "Retornar ao Hotel", desc: "" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d20", date: "20/11", dow: "Sex", city: "Bruxelas", color: "var(--city-brussels)",
+      title: "Paris → Bruxelas",
+      hotel: { name: "Hotel Le Grand Colombier", address: "Rue du Colombier 8-10", checkin: "14h", checkout: "10h", maps: "https://www.google.com/maps/search/Hotel+Le+Grand+Colombier+Rue+du+Colombier+Brussels" },
+      activities: [
+        { time: "08:00", name: "Acordar, tomar banho", desc: "" },
+        { time: "09:00", name: "Check-out Paris", desc: "" },
+        { time: "09:15", name: "Linha 6 até Denfert-Rochereau + RER B até Gare du Nord", desc: "~9 km" },
+        { time: "10:00", name: "Gare du Nord", desc: "Eurostar pede 30 min antes; embarque fecha 10 min antes" },
+        { time: "10:15", name: "☕ Paul (dentro da estação)", desc: "" },
+        { time: "10:55", name: "🚄 Eurostar 9429 Paris → Bruxelles-Midi", desc: "~300 km, chegada 12h17" },
+        { time: "12:32", name: "IC 2112 Bruxelles-Midi → Bruxelas-Central", desc: "Chegada 12h36" },
+        { time: "12:50", name: "Hotel — deixar malas", desc: "" },
+        { time: "13:15", name: "🍽️ Bia Mara ou Fritland", desc: "Bia Mara: fish & chips. Fritland: melhores frites de Bruxelas no cone com maionese, ~€4-5.", maps: "https://www.google.com/maps/search/Fritland+Rue+Henri+Maus+Brussels" },
+        { time: "14:00", name: "Check-in + Grand Place", desc: "", maps: "https://www.google.com/maps/search/Grand+Place+Brussels" },
+        { time: "15:00", name: "Manneken Pis", desc: "", maps: "https://www.google.com/maps/search/Manneken+Pis+Brussels" },
+        { time: "15:15", name: "🧇 Waffle Factory", desc: "Rue du Lombard 30", maps: "https://www.google.com/maps/search/Waffle+Factory+Rue+du+Lombard+Brussels" },
+        { time: "15:45", name: "Mont des Arts", desc: "Vista da cidade", maps: "https://www.google.com/maps/search/Mont+des+Arts+Brussels" },
+        { time: "16:15", name: "Parc de Bruxelles + Palácio Real por fora", desc: "", maps: "https://www.google.com/maps/search/Palais+Royal+de+Bruxelles" },
+        { time: "17:00", name: "🍫 Galeries Royales Saint-Hubert", desc: "Neuhaus, Mary, Pierre Marcolini", maps: "https://www.google.com/maps/search/Galeries+Royales+Saint+Hubert+Brussels" },
+        { time: "18:00", name: "Descer pelo Mont des Arts de volta ao centro", desc: "" },
+        { time: "19:00", name: "🍽️ O'Reilly's Irish Pub", desc: "Place de la Bourse 1", maps: "https://www.google.com/maps/search/O+Reillys+Irish+Pub+Brussels" },
+        { time: "21:00", name: "🍺 Delirium Café", desc: "Impasse de la Fidélité 4A. Sex até 4h. Jeanneke Pis na mesma viela.", maps: "https://www.google.com/maps/search/Delirium+Cafe+Brussels" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d21", date: "21/11", dow: "Sáb", city: "Amsterdam", color: "var(--city-amsterdam)",
+      title: "Bruxelas → Amsterdam + Canais",
+      hotel: { name: "Hotel Fine Harmony", address: "Prins Hendrikkade 120", checkin: "15h", checkout: "11h", maps: "https://www.google.com/maps/search/Hotel+Fine+Harmony+Prins+Hendrikkade+120+Amsterdam" },
+      activities: [
+        { time: "09:00", name: "☕ Aux Merveilleux de Fred (Bruxelas)", desc: "Se acordarem depois do Delirium..." },
+        { time: "10:00", name: "Check-out Bruxelas", desc: "" },
+        { time: "10:15", name: "Grand Place de dia", desc: "", maps: "https://www.google.com/maps/search/Grand+Place+Brussels" },
+        { time: "13:22", name: "🚄 Eurostar Bruxelles-Midi → Amsterdam Centraal", desc: "~210 km, chegada 15h20" },
+        { time: "15:30", name: "Hotel — check-in", desc: "" },
+        { time: "16:00", name: "Damrak → Dam Square", desc: "Palácio Real, Nieuwe Kerk, Monumento Nacional", maps: "https://www.google.com/maps/search/Dam+Square+Amsterdam" },
+        { time: "17:30", name: "Negen Straatjes (Nove Ruas)", desc: "Lojas fecham 17-18h, mas vale pelo passeio", maps: "https://www.google.com/maps/search/De+Negen+Straatjes+Amsterdam" },
+        { time: "18:00", name: "🍟 Frites de janelinha", desc: "Vleminckx (desde 1957, 26 molhos) ou Fabel Friet (maionese de trufa) ou Manneken Pis Damrak", maps: "https://www.google.com/maps/search/Vleminckx+Amsterdam" },
+        { time: "18:30", name: "Volta para região da Centraal", desc: "~1,5 km ou tram" },
+        { time: "19:00", name: "🍽️ H. Murray's ou Café Pollux", desc: "", maps: "https://www.google.com/maps/search/H+Murrays+Amsterdam" },
+        { time: "19:35", name: "Embarque LOVERS Cafe", desc: "Prins Hendrikkade 20", maps: "https://www.google.com/maps/search/Lovers+Canal+Cruises+Amsterdam" },
+        { time: "20:00", name: "🚢 Cruzeiro noturno pelos canais", desc: "Reservado. Levar casaco!" },
+        { time: "21:30", name: "🍺 Molly Malone's", desc: "Oudezijds Kolk 9", maps: "https://www.google.com/maps/search/Molly+Malones+Irish+Pub+Oudezijds+Kolk+Amsterdam" },
+        { time: "23:00", name: "Red Light District", desc: "Proibido fotografar vitrines e fumar na rua!", maps: "https://www.google.com/maps/search/Red+Light+District+De+Wallen+Amsterdam" },
+        { time: "00:30", name: "Hotel a pé", desc: "0,6 km" }
+      ],
+      alerts: ["Cannabis: proibido fumar na rua no Red Light, Dam, Damrak e Nieuwmarkt (multa €100). Hotéis multam €150-250 por fumar no quarto."]
+    },
+    {
+      id: "d22", date: "22/11", dow: "Dom", city: "Amsterdam", color: "var(--city-amsterdam)",
+      title: "Museumplein + Vondelpark + Pubs",
+      hotel: null,
+      activities: [
+        { time: "09:30", name: "☕ Sandwichshop Amsterdam ou Prins Heerlijk", desc: "Ou Toastable Nieuwendijk", maps: "https://www.google.com/maps/search/Sandwichshop+Amsterdam+Damrak" },
+        { time: "10:00", name: "Caminhada pelo Canal Singel", desc: "Fotos, souvenirs" },
+        { time: "11:00", name: "Stroopwafel na Hans Egstorf", desc: "", maps: "https://www.google.com/maps/search/Hans+Egstorf+Amsterdam" },
+        { time: "11:30", name: "Bloemenmarkt", desc: "Dom 11h30-17h30", maps: "https://www.google.com/maps/search/Bloemenmarkt+Amsterdam" },
+        { time: "12:15", name: "Museumplein", desc: "Rijksmuseum, Van Gogh e Concertgebouw por fora", maps: "https://www.google.com/maps/search/Museumplein+Amsterdam" },
+        { time: "13:30", name: "🍔 Hard Rock Cafe ou The Burger Room", desc: "Hard Rock: reservar. Burger Room: Black Angus/Wagyu, tema Mágico de Oz.", maps: "https://www.google.com/maps/search/Hard+Rock+Cafe+Amsterdam" },
+        { time: "14:30", name: "Vondelpark", desc: "", maps: "https://www.google.com/maps/search/Vondelpark+Amsterdam" },
+        { time: "16:00", name: "Canais de volta ao centro", desc: "Herengracht ou Keizersgracht (2 km)" },
+        { time: "17:30", name: "🍺 Rota de pubs holandeses", desc: "Arendsnest (só cervejas holandesas) → Ooievaar (jenever) → Wynand Fockink (fecha 21h)", maps: "https://www.google.com/maps/search/Proeflokaal+Arendsnest+Amsterdam" },
+        { time: "18:15", name: "🌿 Coffee shop", desc: "Strain Hunters ou Abraxas. Só bebida sem álcool.", maps: "https://www.google.com/maps/search/Strain+Hunters+Amsterdam" },
+        { time: "19:30", name: "🍔 The Butcher", desc: "Paleisstraat 14, atrás do Palácio Real. Abre todo dia até 23h+.", maps: "https://www.google.com/maps/search/The+Butcher+Amsterdam+9+Streets" },
+        { time: "21:30", name: "🍺 Molly Malone's ou Café 't Smalle", desc: "Café 't Smalle: brown café de 1786", maps: "https://www.google.com/maps/search/Cafe+t+Smalle+Egelantiersgracht+12+Amsterdam" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d23", date: "23/11", dow: "Seg", city: "Roma", color: "var(--city-roma)",
+      title: "Amsterdam → Roma + Trevi + Trastevere",
+      hotel: { name: "Hospedagem Roma", address: "Via del Monte Oppio 12", checkin: "A confirmar", checkout: "A confirmar", maps: "https://www.google.com/maps/search/Via+del+Monte+Oppio+12+Rome" },
+      activities: [
+        { time: "08:00", name: "☕ Albert Heijn da Centraal", desc: "" },
+        { time: "08:30", name: "Check-out", desc: "" },
+        { time: "09:00", name: "Trem Centraal → Schiphol", desc: "~15 km, 15-20 min" },
+        { time: "09:30", name: "Aeroporto", desc: "" },
+        { time: "11:55", name: "✈️ Ita Airways AMS → Roma FCO", desc: "Chegada 14h10" },
+        { time: "14:45", name: "Leonardo Express até Termini", desc: "~30 km, 32 min. Economia: 4 bilhetes = €40; 3 avulsos = €14 cada.", maps: "https://www.google.com/maps/search/Leonardo+Express+Fiumicino" },
+        { time: "15:30", name: "Hospedagem", desc: "Metrô linha B até Cavour ou a pé (1,2 km); deixar malas + mercado rápido" },
+        { time: "16:30", name: "Lanche no Pastasciutta", desc: "", maps: "https://www.google.com/maps/search/Pastasciutta+Fontana+Di+Trevi+Rome" },
+        { time: "17:00", name: "⛲ Fontana di Trevi", desc: "€2, só cartão", maps: "https://www.google.com/maps/search/Fontana+di+Trevi+Rome" },
+        { time: "17:30", name: "Piazza di Spagna (Escadaria Espanhola)", desc: "PROIBIDO sentar nos degraus; ver o movimento. No topo, vista linda da cidade", maps: "https://www.google.com/maps/search/Piazza+di+Spagna+Rome" },
+        { time: "18:00", name: "Via dei Condotti → Piazza del Popolo → Pincio", desc: "Rua de grife, bonita. Piazza del Popolo: praça oval. Pincio: mirante panorâmico, grátis. Pôr do sol ~16h50", maps: "https://www.google.com/maps/search/Pincio+Rome" },
+        { time: "19:00", name: "Via del Corso → Piazza Venezia", desc: "Principal rua comercial de Roma" },
+        { time: "19:20", name: "⛪ Igreja de Sant'Ignazio", desc: "Foto no espelho, moeda de €1", maps: "https://www.google.com/maps/search/Chiesa+di+Sant+Ignazio+di+Loyola+Rome" },
+        { time: "19:50", name: "Panteão (por fora) + Piazza Navona", desc: "Passar por fora para tirar fotos (entrar não compensa!); Fonte dos Quatro Rios de Bernini", maps: "https://www.google.com/maps/search/Piazza+Navona+Rome" },
+        { time: "20:30", name: "🍽️ Trastevere — Tonnarello ou Dar Poeta", desc: "Tonnarello (cacio e pepe, sem reserva, chegar antes 19h). Dar Poeta (€1/pessoa serviço).", maps: "https://www.google.com/maps/search/Tonnarello+Via+della+Paglia+Trastevere+Rome" },
+        { time: "22:30", name: "🍺 Ombre Rosse ou Birrifugio Trastevere", desc: "", maps: "https://www.google.com/maps/search/Ombre+Rosse+Trastevere+Rome" },
+        { time: "01:00", name: "Uber ou itTaxi até a hospedagem", desc: "~3 km" }
+      ],
+      alerts: ["Metrô Roma fecha cedo em dias de semana. Voltas de madrugada: Uber ou itTaxi.", "Fontana di Trevi: seg e sex 11h30-22h; outros 9h-22h. Depois das 22h, grátis."]
+    },
+    {
+      id: "d24", date: "24/11", dow: "Ter", city: "Roma", color: "var(--city-roma)",
+      title: "Coliseu + Fórum + Capuchinhos",
+      hotel: null,
+      activities: [
+        { time: "08:30", name: "☕ Café no AirBnb", desc: "Metrô linha B até Termini + linha A até Barberini (~3 km)" },
+        { time: "09:20", name: "💀 Cripta dos Capuchinhos", desc: "Entrada 9h35, audioguia. Ombros e joelhos cobertos.", maps: "https://www.google.com/maps/search/Museo+e+Cripta+dei+Cappuccini+Via+Veneto+Rome" },
+        { time: "10:35", name: "Via Veneto + Piazza Barberini", desc: "Fontana del Tritone", maps: "https://www.google.com/maps/search/Via+Veneto+Rome" },
+        { time: "11:15", name: "Metrô linha A até Termini + linha B até Colosseo", desc: "" },
+        { time: "11:40", name: "🍕 Almoço rápido perto do Coliseu", desc: "Pizzeria Sforza Piero (pizza al taglio desde 1960), Pizzeria della Madonna dei Monti (Via della Madonna dei Monti 95). Comer em pé evita taxa de serviço." },
+        { time: "12:15", name: "Check-in MDA Tours", desc: "Via della Polveriera 13. Subir ao terraço acima da estação, atravessar a passarela e subir a rua à esquerda; bandeiras e camisas roxas. Levar documento original, fone de ouvido, app audioguia.", maps: "https://www.google.com/maps/search/Via+della+Polveriera+13+Rome" },
+        { time: "12:45", name: "🏟️ Coliseu", desc: "~1h30. Segurança pode levar 30 min+.", maps: "https://www.google.com/maps/search/Colosseum+Rome" },
+        { time: "14:15", name: "Fórum Romano", desc: "Foto do Coliseu no ângulo do Fórum (referência Instagram)", maps: "https://www.google.com/maps/search/Roman+Forum+Rome" },
+        { time: "15:15", name: "Palatino", desc: "Vista panorâmica. Último acesso 15h30, fecha 16h30 no inverno!", maps: "https://www.google.com/maps/search/Palatine+Hill+Rome" },
+        { time: "16:30", name: "Vittoriano por fora", desc: "", maps: "https://www.google.com/maps/search/Altare+della+Patria+Rome" },
+        { time: "17:00", name: "🍺 Open Baladin", desc: "", maps: "https://www.google.com/maps/search/Open+Baladin+Roma" },
+        { time: "17:30", name: "Campo de' Fiori", desc: "", maps: "https://www.google.com/maps/search/Campo+de+Fiori+Rome" },
+        { time: "17:50", name: "A pé até Piazza San Pietro", desc: "Atravessar o rio pela Via della Conciliazione (~1,6 km, ~20 min)", maps: "https://www.google.com/maps/search/Piazza+San+Pietro+Vatican" },
+        { time: "18:30", name: "Retirada ingressos Portone di Bronzo", desc: "Colunata da direita (fecha 19h)" },
+        { time: "20:30", name: "🍽️ Trastevere", desc: "Meccanismo (drinks, burgers), Pizzeria ai Marmi (barata, sem reserva) ou Antico Caffe Del Moro", maps: "https://www.google.com/maps/search/Meccanismo+Trastevere+Rome" },
+        { time: "22:00", name: "🍸 Pimm's Good ou The Basement", desc: "", maps: "https://www.google.com/maps/search/Pimms+Good+Rome" },
+        { time: "01:00", name: "Uber ou itTaxi", desc: "~2 km" }
+      ],
+      alerts: ["Dentro do Coliseu não entra comida nem bebida.", "Palatino: último acesso 15h30, fecha 16h30 no inverno."]
+    },
+    {
+      id: "d25", date: "25/11", dow: "Qua", city: "Roma", color: "var(--city-roma)",
+      title: "Vaticano + Panteão + Gelato",
+      hotel: null,
+      activities: [
+        { time: "06:45", name: "☕ Café rápido no AirBnb", desc: "" },
+        { time: "07:05", name: "Metrô linha B até Termini + linha A até Ottaviano", desc: "~6 km" },
+        { time: "07:45", name: "🎨 Museus do Vaticano + Capela Sistina", desc: "Entrada 9h. Entrada preferencial GetYourGuide na Viale Vaticano, segurança e depois escanear ingresso na bilheteria CASSA ONLINE E GRUPPI. Proibido short, minissaia, regata. Silêncio e sem fotos na Sistina.", maps: "https://www.google.com/maps/search/Vatican+Museums+Rome" },
+        { time: "10:00", name: "🙏 Audiência com Papa", desc: "Piazza San Pietro, colunata da direita, detectores de metal.", maps: "https://www.google.com/maps/search/Piazza+San+Pietro+Vatican" },
+        { time: "11:00", name: "🍕 Pizzarium (Bonci)", desc: "Pizza al taglio do melhor pizzaiolo de Roma", maps: "https://www.google.com/maps/search/Pizzarium+Bonci+Rome" },
+        { time: "12:15", name: "Castel Sant'Angelo por fora", desc: "", maps: "https://www.google.com/maps/search/Castel+Sant+Angelo+Rome" },
+        { time: "13:00", name: "⛪ Basílica de São Pedro", desc: "Gratuita. Pietà à direita na entrada. Cúpula: €10 escada, €15 elevador.", maps: "https://www.google.com/maps/search/Basilica+di+San+Pietro+Vatican" },
+        { time: "14:30", name: "Piazza San Pietro", desc: "", maps: "https://www.google.com/maps/search/Piazza+San+Pietro+Vatican" },
+        { time: "15:30", name: "🏛️ Panteão", desc: "Ingresso pendente, €7. Com luz do dia (~2 km)", maps: "https://www.google.com/maps/search/Pantheon+Rome" },
+        { time: "16:00", name: "🍨 Gelato!", desc: "Giolitti (desde 1900), Gelateria del Teatro (alecrim icônico) ou Fassi (mais antiga, 1880). 'Cono o coppetta? Con panna?'", maps: "https://www.google.com/maps/search/Giolitti+Via+degli+Uffici+del+Vicario+40+Rome" },
+        { time: "18:00", name: "Tempo livre + fotos do Coliseu iluminado", desc: "" },
+        { time: "19:00", name: "🍽️ Último jantar em Roma", desc: "Trastevere: Da Enzo al 29 (favorito!), Checco er Carettiere ou Nannarella. Ou perto da Trevi: Deroma Farine (~240m da Fontana)", maps: "https://www.google.com/maps/search/Da+Enzo+al+29+Trastevere+Rome" },
+        { time: "21:30", name: "Mangia e Trevi", desc: "~54m da Fontana", maps: "https://www.google.com/maps/search/Mangia+e+Trevi+Rome" },
+        { time: "22:00", name: "⛲ Fontana di Trevi à noite", desc: "Grátis depois das 22h. Foto com a fonte vazia depois da meia-noite", maps: "https://www.google.com/maps/search/Fontana+di+Trevi+Rome" },
+        { time: "00:30", name: "Uber ou itTaxi", desc: "~1,5 km" }
+      ],
+      alerts: ["Quarta de manhã: Basílica e cúpula fechadas até ~12h30 (Audiência do Papa). Museus menos cheios nesse horário."]
+    },
+    {
+      id: "d26", date: "26/11", dow: "Qui", city: "Dublin", color: "var(--city-dublin)",
+      title: "Roma → Dublin + Pub Crawl",
+      hotel: { name: "Airbnb Dublin", address: "25 William Street South, Dublin 2", checkin: "15h", checkout: "10h", maps: "https://www.google.com/maps/search/25+William+Street+South+Dublin+2+Ireland" },
+      activities: [
+        { time: "05:30", name: "Amigos: 2 carros até Fiumicino (voo 8h10 → Madrid)", desc: "Táxi oficial: €55/carro, tarifa fixa" },
+        { time: "06:30", name: "Diego e Beth: café com calma + check-out 07:00", desc: "" },
+        { time: "11:20", name: "✈️ Aer Lingus EI 403 FCO → Dublin", desc: "Chegada 13h35" },
+        { time: "14:15", name: "Dublin Express 782 → Aston Quay", desc: "~12 km. A pé até Airbnb (0,8 km)" },
+        { time: "15:00", name: "Check-in", desc: "" },
+        { time: "15:30", name: "Grafton Street + almoço Bailey Bar", desc: "Depois: St Stephen's Green", maps: "https://www.google.com/maps/search/Grafton+Street+Dublin" },
+        { time: "16:30", name: "Ha'penny Bridge + Temple Bar", desc: "", maps: "https://www.google.com/maps/search/Ha+Penny+Bridge+Dublin" },
+        { time: "18:30", name: "🍽️ The Brazen Head", desc: "Pub mais antigo da Irlanda. Ou O'Shea Merchant.", maps: "https://www.google.com/maps/search/The+Brazen+Head+Dublin" },
+        { time: "21:00", name: "🍺 Grogan's + Kehoe's", desc: "Grogan's: melhor pint. Kehoe's: eleito melhor pub (155 pubs visitados)", maps: "https://www.google.com/maps/search/Grogans+Castle+Lounge+South+William+Street+Dublin" }
+      ],
+      alerts: ["Nunca pegar o pint antes de ele assentar!"]
+    },
+    {
+      id: "d27", date: "27/11", dow: "Sex", city: "Dublin", color: "var(--city-dublin)",
+      title: "Centro Histórico por Fora",
+      hotel: null,
+      activities: [
+        { time: "09:30", name: "☕ Dolce Silicy", desc: "", maps: "https://www.google.com/maps/search/Dolce+Sicily+Dublin" },
+        { time: "10:30", name: "Trinity College + Molly Malone", desc: "Se o mercado Christmas at the Castle já estiver aberto, é no Dublin Castle.", maps: "https://www.google.com/maps/search/Dublin+Castle+Dublin" },
+        { time: "11:45", name: "Christ Church + St Patrick's (por fora)", desc: "", maps: "https://www.google.com/maps/search/Christ+Church+Cathedral+Dublin" },
+        { time: "13:00", name: "🍽️ The Landmark", desc: "", maps: "https://www.google.com/maps/search/The+Landmark+Dublin" },
+        { time: "15:00", name: "🍺 Mulligan's", desc: "O pint do Kennedy (1947)", maps: "https://www.google.com/maps/search/Mulligans+Poolbeg+Street+Dublin" },
+        { time: "17:00", name: "Passeio pelo Temple Bar Street e de volta ao AirBnb", desc: "" },
+        { time: "19:30", name: "🍽️ The Porterhouse Temple Bar (favorito!!) ou The Fourth Corner", desc: "", maps: "https://www.google.com/maps/search/The+Porterhouse+Temple+Bar+Dublin" },
+        { time: "21:00", name: "🍺 Temple Bar Pub", desc: "", maps: "https://www.google.com/maps/search/The+Temple+Bar+Dublin" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d28", date: "28/11", dow: "Sáb", city: "Dublin", color: "var(--city-dublin)",
+      title: "Phoenix Park + Rota Guinness",
+      hotel: null,
+      activities: [
+        { time: "10:30", name: "☕ The Bakery Temple Bar", desc: "", maps: "https://www.google.com/maps/search/The+Bakery+Temple+Bar+Dublin" },
+        { time: "11:30", name: "🦌 Phoenix Park", desc: "~3,5 km. Ônibus ou a pé pela margem do Liffey. Procurar os cervos!", maps: "https://www.google.com/maps/search/Phoenix+Park+Dublin" },
+        { time: "14:00", name: "🍽️ The Church Bar", desc: "", maps: "https://www.google.com/maps/search/The+Church+Cafe+Bar+Dublin" },
+        { time: "15:00", name: "📸 GPO Museu por fora", desc: "", maps: "https://www.google.com/maps/search/GPO+Museum+Dublin" },
+        { time: "19:30", name: "🍽️ Stags Head ou The Celt Bar", desc: "", maps: "https://www.google.com/maps/search/Stags+Head+Dame+Court+Dublin" },
+        { time: "21:30", name: "🍺 The Confession Box", desc: "Dos melhores pints do centro", maps: "https://www.google.com/maps/search/The+Confession+Box+pub+Dublin" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d29", date: "29/11", dow: "Dom", city: "Dublin", color: "var(--city-dublin)",
+      title: "Dia de Local",
+      hotel: null,
+      activities: [
+        { time: "10:30", name: "☕ Metro Café + George's Street Arcade", desc: "", maps: "https://www.google.com/maps/search/Metro+Cafe+South+William+Street+Dublin" },
+        { time: "12:00", name: "Merrion Square + estátua Oscar Wilde", desc: "", maps: "https://www.google.com/maps/search/Merrion+Square+Dublin" },
+        { time: "13:00", name: "🍽️ Toner's", desc: "Um dos mais antigos de Dublin. Única visita do poeta Yeats a um pub.", maps: "https://www.google.com/maps/search/Toners+Pub+Baggot+Street+Dublin" },
+        { time: "15:00", name: "🎶 The Temple Bar Pub — sessão folk de domingo!", desc: "Músicos irlandeses tocando melodias tradicionais", maps: "https://www.google.com/maps/search/The+Temple+Bar+Dublin" },
+        { time: "19:00", name: "🍽️ The Quays Irish Restaurant", desc: "Beef & Guinness Stew, fish & chips, bangers & mash. Reservar! Plano B: Boxty House.", maps: "https://www.google.com/maps/search/The+Quays+Irish+Restaurant+Temple+Bar+Dublin" },
+        { time: "21:00", name: "🎶 The Old Storehouse", desc: "Três bares, melhores músicos de trad da Irlanda", maps: "https://www.google.com/maps/search/The+Old+Storehouse+Dublin" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d30", date: "30/11", dow: "Seg", city: "Dublin", color: "var(--city-dublin)",
+      title: "Bate-volta Galway",
+      hotel: null,
+      activities: [
+        { time: "06:30", name: "Acordar + café na estação", desc: "" },
+        { time: "07:36", name: "🚂 Trem Heuston → Galway", desc: "~2h20. Comprar no irishrail.ie. Chegada ~10:15.", maps: "https://www.google.com/maps/search/Dublin+Heuston+Station" },
+        { time: "10:30", name: "🎄 Eyre Square + Mercado de Natal", desc: "~50 barracas, roda-gigante 32m, tenda de cerveja Galway Bay", maps: "https://www.google.com/maps/search/Eyre+Square+Galway" },
+        { time: "12:00", name: "Latin Quarter + Spanish Arch", desc: "Ruas de paralelepípedo, pubs, músicos de rua", maps: "https://www.google.com/maps/search/Latin+Quarter+Galway" },
+        { time: "13:00", name: "🍽️ The Quays ou The Front Door Pub", desc: "Front Door: um dos bares do clipe Galway Girl", maps: "https://www.google.com/maps/search/The+Quays+Galway" },
+        { time: "14:00", name: "Cathedral de Galway", desc: "750m", maps: "https://www.google.com/maps/search/Cathedral+of+Our+Lady+Assumed+into+Heaven+Galway" },
+        { time: "14:30", name: "🌊 Salthill Promenade", desc: "Calçadão à beira da baía (~2 km). Tradição: chutar o muro no fim!", maps: "https://www.google.com/maps/search/Salthill+Promenade+Galway" },
+        { time: "16:30", name: "🍺 Taaffe's + Tig Cóilí", desc: "Pubs tradicionais com música ao vivo", maps: "https://www.google.com/maps/search/Tig+Coili+Galway" },
+        { time: "20:15", name: "De volta a Galway (Ceannt)", desc: "" },
+        { time: "20:50", name: "🚂 Embarque trem Galway → Dublin", desc: "" },
+        { time: "23:35", name: "Chegada em Heuston", desc: "" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d01", date: "01/12", dow: "Ter", city: "Dublin", color: "var(--city-dublin)",
+      title: "Último dia Dublin — Rota Guinness",
+      hotel: null,
+      activities: [
+        { time: "11:00", name: "☕ Bewley's Grafton Street", desc: "O café mais icônico de Dublin", maps: "https://www.google.com/maps/search/Bewleys+Grafton+Street+Dublin" },
+        { time: "12:30", name: "Grafton Street + Dublin Castle", desc: "Ver se o mercado de Natal já abriu", maps: "https://www.google.com/maps/search/Dublin+Castle+Dublin" },
+        { time: "14:30", name: "🍽️ The Boxty House", desc: "", maps: "https://www.google.com/maps/search/The+Boxty+House+Dublin" },
+        { time: "15:30", name: "Ha'penny Bridge", desc: "Em frente ao Boxty House", maps: "https://www.google.com/maps/search/Ha+Penny+Bridge+Dublin" },
+        { time: "16:30", name: "🍺 The Palace Bar ou Bowes Lounge", desc: "Fleet Street. Bowes: 'segredo que os locais não querem contar'", maps: "https://www.google.com/maps/search/The+Palace+Bar+Fleet+Street+Dublin" },
+        { time: "18:00", name: "Última vez no Temple Bar Pub", desc: "" },
+        { time: "20:00", name: "🍽️ The Hairy Lemon + despedida no Long Hall", desc: "Long Hall: pub vitoriano lindíssimo", maps: "https://www.google.com/maps/search/The+Hairy+Lemon+Dublin" },
+        { time: "22:00", name: "Voltar pra casa e descansar", desc: "Voo amanhã" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d02", date: "02/12", dow: "Qua", city: "Edimburgo", color: "var(--city-edinburgh)",
+      title: "Dublin → Edimburgo + Mercado de Natal",
+      hotel: { name: "37 Royal Terrace", address: "EH7 5AH, perto de Calton Hill", checkin: "13h-23h30", checkout: "7h-10h", maps: "https://www.google.com/maps/search/37+Royal+Terrace+Edinburgh+EH7+5AH" },
+      activities: [
+        { time: "09:00", name: "Arrumar malas", desc: "" },
+        { time: "10:00", name: "Check-out Dublin", desc: "" },
+        { time: "10:30", name: "☕ Metro Cafe", desc: "", maps: "https://www.google.com/maps/search/Metro+Cafe+Dublin" },
+        { time: "12:00", name: "A pé até Aston Quay + Dublin Express 782", desc: "~12 km até aeroporto" },
+        { time: "14:00", name: "Aeroporto", desc: "" },
+        { time: "15:45", name: "✈️ Ryanair FR814 Dublin → Edimburgo", desc: "Chegada 16:50. Check-in online obrigatório!" },
+        { time: "17:15", name: "Bonde até York Place (~35 min, £7,90)", desc: "A pé até hotel (0,7 km)" },
+        { time: "18:00", name: "Check-in", desc: "" },
+        { time: "19:00", name: "🎄 Mercado de Natal", desc: "East Princes Street Gardens, ~70 barracas, 10h-22h", maps: "https://www.google.com/maps/search/East+Princes+Street+Gardens+Edinburgh" },
+        { time: "20:30", name: "🍺 Guildford Arms", desc: "Pub vitoriano de 1896", maps: "https://www.google.com/maps/search/Guildford+Arms+Edinburgh" },
+        { time: "22:00", name: "🍺 The Barony", desc: "Broughton Street", maps: "https://www.google.com/maps/search/Barony+Bar+Edinburgh" }
+      ],
+      alerts: ["Ryanair: check-in online obrigatório e regra rígida de bagagem!"]
+    },
+    {
+      id: "d03", date: "03/12", dow: "Qui", city: "Edimburgo", color: "var(--city-edinburgh)",
+      title: "Old Town + Harry Potter + Rooftop",
+      hotel: null,
+      activities: [
+        { time: "09:00", name: "☕ Café no hotel", desc: "" },
+        { time: "10:00", name: "Royal Mile", desc: "St Giles' Cathedral, Mercat Cross, City Chambers (Vingadores), Edinburgh Castle por fora", maps: "https://www.google.com/maps/search/Royal+Mile+Edinburgh" },
+        { time: "11:30", name: "Victoria Street + Grassmarket", desc: "", maps: "https://www.google.com/maps/search/Victoria+Street+Edinburgh" },
+        { time: "12:15", name: "⚡ Greyfriars Kirkyard", desc: "Túmulos de Thomas Riddell e William McGonagall. George Heriot's School. Greyfriars Bobby.", maps: "https://www.google.com/maps/search/Greyfriars+Kirkyard+Edinburgh" },
+        { time: "13:00", name: "🍽️ Greyfriars Bobby's Bar", desc: "Pub de 1893, haggis, fish & chips, tortas. Reservar! Plano B: Oink (Victoria St).", maps: "https://www.google.com/maps/search/Greyfriars+Bobbys+Bar+Edinburgh" },
+        { time: "14:30", name: "Cockburn Street → Waverley Station", desc: "Vingadores", maps: "https://www.google.com/maps/search/Cockburn+Street+Edinburgh" },
+        { time: "15:30", name: "🥃 1820 Rooftop Johnnie Walker", desc: "145 Princes Street. Entrada lateral, sem tour. Petiscos até 17h. Smart casual. Reservar!", maps: "https://www.google.com/maps/search/Johnnie+Walker+Princes+Street+Edinburgh" },
+        { time: "17:30", name: "🎄 Mercado de Natal iluminado", desc: "", maps: "https://www.google.com/maps/search/East+Princes+Street+Gardens+Edinburgh" },
+        { time: "19:30", name: "🍽️ The Devil's Advocate", desc: "9 Advocate's Close. Flights de uísque. Reservar!", maps: "https://www.google.com/maps/search/Devils+Advocate+Edinburgh" },
+        { time: "21:30", name: "🎶 Sandy Bell's", desc: "Música folk escocesa ao vivo", maps: "https://www.google.com/maps/search/Sandy+Bells+Edinburgh" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d04", date: "04/12", dow: "Sex", city: "Edimburgo", color: "var(--city-edinburgh)",
+      title: "New Town + Dean Village + Cantos Fotogênicos",
+      hotel: null,
+      activities: [
+        { time: "09:00", name: "☕ Café no hotel", desc: "" },
+        { time: "09:45", name: "📸 Calton Hill", desc: "Dugald Stewart Monument (foto clássica com castelo), National Monument", maps: "https://www.google.com/maps/search/Calton+Hill+Edinburgh" },
+        { time: "10:45", name: "Princes Street", desc: "The Balmoral (J.K. Rowling terminou o último HP), Princes Street Gardens, Scott Monument", maps: "https://www.google.com/maps/search/Princes+Street+Edinburgh" },
+        { time: "12:00", name: "🎬 Moray Place + Forres Street", desc: "Cenários do filme Um Dia (One Day)", maps: "https://www.google.com/maps/search/Moray+Place+Edinburgh" },
+        { time: "12:30", name: "📸 Circus Lane", desc: "", maps: "https://www.google.com/maps/search/Circus+Lane+Edinburgh" },
+        { time: "13:00", name: "Dean Village", desc: "", maps: "https://www.google.com/maps/search/Dean+Village+Edinburgh" },
+        { time: "13:30", name: "Water of Leith até Stockbridge", desc: "Dean Bridge de baixo, St Bernard's Well (templo romano 1789). Calçado firme!", maps: "https://www.google.com/maps/search/Water+of+Leith+Walkway+Dean+Village" },
+        { time: "14:00", name: "🍽️ Hectors", desc: "Pub moderno, nota 4,4. Steak pie, Balmoral chicken. Reservar.", maps: "https://www.google.com/maps/search/Hectors+Deanhaugh+Street+Edinburgh" },
+        { time: "16:00", name: "🎄 Luzes de Natal New Town", desc: "The Dome (pilares iluminados, só foto), St Andrew Square, Multrees Walk", maps: "https://www.google.com/maps/search/The+Dome+14+George+Street+Edinburgh" },
+        { time: "17:30", name: "🍺 The Black Cat (Rose Street)", desc: "Nota 4,5. 125+ uísques, asinhas, folk ao vivo sexta. Chegar cedo!", maps: "https://www.google.com/maps/search/The+Black+Cat+Rose+Street+Edinburgh" },
+        { time: "19:15", name: "🍽️ Whiski Rooms", desc: "4 North Bank Street", maps: "https://www.google.com/maps/search/Whiski+Rooms+Edinburgh" },
+        { time: "22:00", name: "🥃 The Bow Bar", desc: "~310 uísques e cerveja de barril. Sem cozinha.", maps: "https://www.google.com/maps/search/The+Bow+Bar+Edinburgh" }
+      ],
+      alerts: []
+    },
+    {
+      id: "d05", date: "05/12", dow: "Sáb", city: "Edimburgo", color: "var(--city-edinburgh)",
+      title: "Arthur's Seat + Outlander + Despedida",
+      hotel: null,
+      activities: [
+        { time: "08:30", name: "☕ Café no hotel", desc: "" },
+        { time: "09:30", name: "⛰️ Arthur's Seat", desc: "~45 min subida, vista de T2 Trainspotting. Calçado firme! Plano B (chuva): National Museum of Scotland (Chambers Street, grátis, Grand Gallery, ovelha Dolly).", maps: "https://www.google.com/maps/search/Arthurs+Seat+Edinburgh" },
+        { time: "12:00", name: "Holyroodhouse + Bakehouse Close (Outlander)", desc: "", maps: "https://www.google.com/maps/search/Bakehouse+Close+Canongate+Edinburgh" },
+        { time: "12:00", name: "Scottish Parliament", desc: "Holyrood, grátis, sábado 10h-17h" },
+        { time: "13:00", name: "🍽️ Whiski Bar & Restaurant", desc: "Royal Mile, comida o dia todo", maps: "https://www.google.com/maps/search/Whiski+Bar+Restaurant+Edinburgh" },
+        { time: "15:00", name: "🎄 Mercado de Natal + pista de gelo George Street", desc: "", maps: "https://www.google.com/maps/search/East+Princes+Street+Gardens+Edinburgh" },
+        { time: "17:00", name: "Hotel e malas", desc: "" },
+        { time: "19:00", name: "🍽️ Teuchters Bar ou Royal Mile Tavern", desc: "Teuchters: 120+ single malts, haggis, 'hoop of destiny'. Reservar! Royal Mile Tavern: haggis bon bons, música às 22h.", maps: "https://www.google.com/maps/search/Teuchters+Bar+Edinburgh" },
+        { time: "22:30", name: "Hotel cedo", desc: "Voo às 8h25" }
+      ],
+      alerts: ["Voo às 8h25 amanhã — dormir cedo!"]
+    },
+    {
+      id: "d06", date: "06/12", dow: "Dom", city: "Madrid", color: "var(--city-madrid)",
+      title: "Edimburgo → Madrid (volta do casal)",
+      hotel: { name: "Hostal Milan", address: "C de Miguel Moya 4, 2º izd", checkin: "14h", checkout: "11h30", maps: "https://www.google.com/maps/search/Hostal+Milan+Miguel+Moya+4+Madrid" },
+      activities: [
+        { time: "05:15", name: "Acordar + check-out", desc: "Airlink 100 (24h, £6) ou Uber" },
+        { time: "08:25", name: "✈️ Ryanair FR189 Edimburgo → Madrid", desc: "Chegada 12:20" },
+        { time: "12:50", name: "Metrô até Plaza de España + hotel", desc: "Linha 8 → Nuevos Ministerios → linha 10 até Plaza de España" },
+        { time: "14:15", name: "🍽️ Mercado de San Ildefonso", desc: "Calle Fuencarral 57, Malasaña. Street food 3 andares. Dom 13h-0h.", maps: "https://www.google.com/maps/search/Mercado+de+San+Ildefonso+Madrid" },
+        { time: "16:00", name: "🛍️ Primark Gran Vía", desc: "Maior da Espanha", maps: "https://www.google.com/maps/search/Primark+Gran+Via+32+Madrid" },
+        { time: "17:30", name: "🎄 Mercado de Natal Plaza Mayor", desc: "~100 barracas. Cuidado com batedores de carteira!", maps: "https://www.google.com/maps/search/Plaza+Mayor+Madrid" },
+        { time: "19:30", name: "🍽️ Tapas na Cava Baja, La Latina", desc: "Juana la Loca (tortilha) ou Taberna Tempranillo (vinho e sangria). Pedir também 'tinto de verano'.", maps: "https://www.google.com/maps/search/Cava+Baja+Madrid" }
+      ],
+      alerts: ["Puente de diciembre: Constituição (seg 7/12) + Imaculada (ter 8/12). Cidade cheia, reservar restaurantes!"]
+    },
+    {
+      id: "d07", date: "07/12", dow: "Seg", city: "Madrid", color: "var(--city-madrid)",
+      title: "Retiro + Cibeles + Malasaña",
+      hotel: null,
+      activities: [
+        { time: "09:00", name: "☕ Panadería Dulce Vida", desc: "Tostada con tomate + café. Conferir se abre no feriado!", maps: "https://www.google.com/maps/search/Panaderia+Dulce+Vida+Madrid" },
+        { time: "10:00", name: "🚇 Metrô L2 Santo Domingo → Retiro", desc: "~3 km, ~10 min" },
+        { time: "10:15", name: "🌳 Parque del Retiro", desc: "Puerta de Alcalá, Estanque Grande (barquinho), Palácio de Cristal — em restauração, interior fechado; obra 'Fardo' de Andrea Canepa até 31/12/2026, para ver por fora.", maps: "https://www.google.com/maps/search/Parque+del+Retiro+Madrid" },
+        { time: "12:30", name: "📸 Cibeles + Edifício Metrópolis", desc: "Metrô L2 Retiro → Banco de España. Início da Gran Vía.", maps: "https://www.google.com/maps/search/Plaza+de+Cibeles+Madrid" },
+        { time: "13:30", name: "🍽️ La Cerda de Chueca ou Desengaño 13", desc: "La Cerda: bar rosa, asinhas, costelinha, ravioli, lasanha de rabo de boi, drinks; nota 4,2. Desengaño 13: tapas fusão, croquetas, costelinha, sangria; nota 4,5. Ambos abrem segunda a partir das 13h.", maps: "https://www.google.com/maps/search/La+Cerda+de+Chueca+Madrid" },
+        { time: "15:30", name: "🛌 Descanso no hotel ou Primark", desc: "~0,8 km" },
+        { time: "17:30", name: "Templo de Debod + Plaza de España", desc: "~1,2 km do hotel. Templo egípcio de verdade, Palácio Real ao fundo, grátis por fora.", maps: "https://www.google.com/maps/search/Templo+de+Debod+Madrid" },
+        { time: "19:30", name: "🍽️ La Musa Malasaña", desc: "Nota 4,5. Berinjelas japonesas, tomates verdes fritos. Reservar! Alternativa especial: Sobrino de Botín (cochinillo, ~€50/pessoa).", maps: "https://www.google.com/maps/search/La+Musa+Malasana+Madrid" },
+        { time: "21:30", name: "🌃 Gran Vía + Puerta del Sol iluminadas", desc: "~0,8 km. Volta a pé.", maps: "https://www.google.com/maps/search/Gran+Via+Madrid" }
+      ],
+      alerts: ["Feriado (Constituição transferido)! Conferir horários de lojas e restaurantes no Maps na véspera.", "É feriado: reservar La Cerda ou Desengaño se possível."]
+    },
+    {
+      id: "d08", date: "08/12", dow: "Ter", city: "Lisboa", color: "var(--city-lisboa)",
+      title: "Madrid → Lisboa + Belém",
+      hotel: { name: "Ibis Styles Marques de Pombal", address: "Lisboa", checkin: "15h", checkout: "12h", maps: "https://www.google.com/maps/search/Ibis+Styles+Marques+de+Pombal+Lisboa" },
+      activities: [
+        { time: "07:30", name: "Check-out Madrid", desc: "Metrô até Barajas" },
+        { time: "10:20", name: "✈️ TAP Madrid → Lisboa", desc: "Chegada 10h45 (hora local)" },
+        { time: "11:15", name: "Metrô até Marquês de Pombal + hotel", desc: "" },
+        { time: "12:30", name: "Uber até Belém", desc: "~8 km, ~15 min" },
+        { time: "13:00", name: "🍽️ Pastéis de Belém", desc: "Nota 4,6 (100 mil+ avaliações). Sentar no salão (fila de mesa é rápida). Canela e açúcar por cima!", maps: "https://www.google.com/maps/search/Pasteis+de+Belem+Lisboa" },
+        { time: "14:00", name: "Belém por fora", desc: "Mosteiro dos Jerónimos (igreja grátis), Padrão dos Descobrimentos, Torre de Belém", maps: "https://www.google.com/maps/search/Torre+de+Belem+Lisboa" },
+        { time: "15:30", name: "🚃 Elétrico 15E → Praça do Comércio", desc: "Rua Augusta, Rossio. Mercado de Natal se já estiver montado.", maps: "https://www.google.com/maps/search/Praca+do+Comercio+Lisboa" },
+        { time: "17:00", name: "Descanso no hotel", desc: "" },
+        { time: "20:00", name: "🍽️ Noitada Bar & Tapas (Pink Street)", desc: "Nota 4,9, tapas, drinks, aberto até 5h. Opção: Taberna Tosca (croquetes alheira, polvo, sangria).", maps: "https://www.google.com/maps/search/Noitada+Bar+Tapas+Rua+Nova+do+Carvalho+7+Lisboa" }
+      ],
+      alerts: ["8 de dezembro é feriado nacional em Portugal (Imaculada Conceição)."]
+    },
+    {
+      id: "d09", date: "09/12", dow: "Qua", city: "Lisboa", color: "var(--city-lisboa)",
+      title: "Alfama + Bifana + Voo para casa",
+      hotel: null,
+      activities: [
+        { time: "08:45", name: "Check-out — malas guardadas no hotel", desc: "" },
+        { time: "09:00", name: "☕ Manteigaria do Rossio", desc: "Melhor pastel de nata da cidade, ~€1,50. Abre 8h.", maps: "https://www.google.com/maps/search/Manteigaria+Praca+Dom+Pedro+IV+68+Lisboa" },
+        { time: "10:00", name: "📸 Miradouros de Santa Luzia + Portas do Sol", desc: "Vista clássica de Alfama e do Tejo", maps: "https://www.google.com/maps/search/Miradouro+de+Santa+Luzia+Lisboa" },
+        { time: "11:00", name: "Descida por Alfama", desc: "Só descida! Foto do Elétrico 28 passando.", maps: "https://www.google.com/maps/search/Alfama+Lisboa" },
+        { time: "12:00", name: "🍽️ Bifana nas As Bifanas do Afonso", desc: "Sanduíche de porco mais típico, barato, com uma imperial. Nota 4,5.", maps: "https://www.google.com/maps/search/As+Bifanas+do+Afonso+Lisboa" },
+        { time: "13:00", name: "🍒 Ginjinha na A Ginjinha", desc: "Licor de ginja no copinho, de pé na rua", maps: "https://www.google.com/maps/search/A+Ginjinha+Largo+de+Sao+Domingos+Lisboa" },
+        { time: "14:00", name: "Últimas voltas no Rossio e Baixa", desc: "Comprar lanche para viagem" },
+        { time: "15:30", name: "Hotel — buscar malas", desc: "" },
+        { time: "16:45", name: "Aeroporto", desc: "" },
+        { time: "23:20", name: "✈️ TAP Lisboa → Rio GIG", desc: "Chegada 10/12 às 06h30" }
+      ],
+      alerts: []
+    }
+  ],
+  docs: [
+    { group: "Passagens", icon: "✈️", items: [
+      { name: "TAP TP74 — GIG → Lisboa (14/11)", link: "" },
+      { name: "TAP TP1010 — Lisboa → Madrid (15/11)", link: "" },
+      { name: "AVE — Madrid → Barcelona (16/11)", link: "" },
+      { name: "Air France AF1349 — BCN → Paris CDG (18/11)", link: "" },
+      { name: "Eurostar 9429 — Paris → Bruxelas (20/11)", link: "" },
+      { name: "Eurostar — Bruxelas → Amsterdam (21/11)", link: "" },
+      { name: "Ita Airways — AMS → Roma FCO (23/11)", link: "" },
+      { name: "Aer Lingus EI 403 — FCO → Dublin (26/11)", link: "" },
+      { name: "Ryanair FR814 — Dublin → Edimburgo (02/12)", link: "" },
+      { name: "Ryanair FR189 — Edimburgo → Madrid (06/12)", link: "" },
+      { name: "TAP — Madrid → Lisboa (08/12)", link: "" },
+      { name: "TAP — Lisboa → Rio GIG (09/12)", link: "" }
+    ]},
+    { group: "Hospedagens", icon: "🏨", items: [
+      { name: "Hostal Marlasca — Madrid (15/11)", link: "" },
+      { name: "Airbnb Sagrada Família — Barcelona (16-18/11)", link: "" },
+      { name: "Hôtel France Eiffel — Paris (18-20/11)", link: "" },
+      { name: "Le Grand Colombier — Bruxelas (20-21/11)", link: "" },
+      { name: "Fine Harmony — Amsterdam (21-23/11)", link: "" },
+      { name: "Via del Monte Oppio — Roma (23-26/11)", link: "" },
+      { name: "Airbnb 25 William St — Dublin (26/11-02/12)", link: "" },
+      { name: "37 Royal Terrace — Edimburgo (02-06/12)", link: "" },
+      { name: "Hostal Milan — Madrid volta (06-08/12)", link: "" },
+      { name: "Ibis Styles Pombal — Lisboa (08-09/12)", link: "" }
+    ]},
+    { group: "Ingressos & Passeios", icon: "🎟️", items: [
+      { name: "Bernabéu Tour (15/11 16h)", link: "" },
+      { name: "Sercotel Rooftop (16/11)", link: "" },
+      { name: "Sagrada Família (17/11)", link: "" },
+      { name: "Cruzeiro Bateaux Parisiens (18/11)", link: "" },
+      { name: "Torre Eiffel (19/11 21h30)", link: "" },
+      { name: "Cruzeiro Amsterdam (21/11 20h)", link: "" },
+      { name: "Capuchinhos (24/11 9h35) — pendente", link: "" },
+      { name: "Coliseu + Fórum + Palatino MDA Tours (24/11)", link: "" },
+      { name: "Museus Vaticano + Capela Sistina (25/11)", link: "" },
+      { name: "Audiência Papa (25/11)", link: "" },
+      { name: "Panteão (25/11 15h30) — pendente", link: "" }
+    ]},
+    { group: "Seguro Viagem", icon: "🛡️", items: [
+      { name: "Apólice do grupo", link: "" }
+    ]}
+  ],
+  cityInfo: [
+    { name: "Espanha", flag: "🇪🇸", cities: "Madrid, Barcelona", currency: "Euro (€)", timezone: "UTC+1 (CET)", emergency: "112", language: "Espanhol", transport: "Cartão/celular por aproximação no metrô e ônibus", voltage: "230V, tipo C/F", tip: "Gorjeta não obrigatória" },
+    { name: "França", flag: "🇫🇷", cities: "Paris", currency: "Euro (€)", timezone: "UTC+1 (CET)", emergency: "112", language: "Francês", transport: "App Île-de-France Mobilités ou Navigo Easy (só digital)", voltage: "230V, tipo C/E", tip: "Serviço incluído na conta" },
+    { name: "Bélgica", flag: "🇧🇪", cities: "Bruxelas", currency: "Euro (€)", timezone: "UTC+1 (CET)", emergency: "112", language: "Francês/Neerlandês", transport: "STIB/MIVB — cartão ou app", voltage: "230V, tipo C/E", tip: "Gorjeta não esperada" },
+    { name: "Holanda", flag: "🇳🇱", cities: "Amsterdam", currency: "Euro (€)", timezone: "UTC+1 (CET)", emergency: "112", language: "Neerlandês/Inglês", transport: "OV-chipkaart ou cartão contactless", voltage: "230V, tipo C/F", tip: "Arredondar a conta" },
+    { name: "Itália", flag: "🇮🇹", cities: "Roma", currency: "Euro (€)", timezone: "UTC+1 (CET)", emergency: "112 / 118 (ambulância)", language: "Italiano", transport: "Metrô Tap & Go (teto €8,50/dia). App itTaxi.", voltage: "230V, tipo C/F/L", tip: "Coperto (~€1-3) já na conta" },
+    { name: "Irlanda", flag: "🇮🇪", cities: "Dublin, Galway", currency: "Euro (€)", timezone: "UTC+0 (GMT)", emergency: "112 / 999", language: "Inglês/Irlandês", transport: "Leap Card. Dublin Express (aeroporto) não aceita Leap.", voltage: "230V, tipo G (adaptador!)", tip: "10-15% em restaurante" },
+    { name: "Escócia", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿", cities: "Edimburgo", currency: "Libra Esterlina (£)", timezone: "UTC+0 (GMT)", emergency: "999 / 112", language: "Inglês", transport: "Lothian Buses, bonde. Contactless.", voltage: "230V, tipo G (adaptador!)", tip: "10% em restaurante" },
+    { name: "Portugal", flag: "🇵🇹", cities: "Lisboa", currency: "Euro (€)", timezone: "UTC+0 (WET)", emergency: "112", language: "Português", transport: "Metrô, Elétrico 15E/28. Viva Viagem.", voltage: "230V, tipo C/F", tip: "5-10% se quiser" }
+  ],
+  checklist: {
+    documentos: [
+      "Passaporte (validade > 6 meses)",
+      "Seguro viagem (apólice impressa ou digital)",
+      "Cópias do passaporte (física + nuvem)",
+      "Reservas de hotel (confirmações)",
+      "Passagens aéreas (todas)",
+      "Bilhetes de trem (AVE, Eurostar)",
+      "Ingressos de passeios",
+      "Cartão de crédito internacional",
+      "CNH (para eventuais aluguéis)",
+      "Comprovante de hospedagem",
+      "Cartão EHIC / seguro saúde"
+    ],
+    eletronicos: [
+      "Celular + carregador",
+      "Adaptador de tomada (tipo G para UK/Irlanda!)",
+      "Adaptador universal",
+      "Powerbank",
+      "Fone de ouvido",
+      "Cabo extra USB-C",
+      "Chip internacional / eSIM"
+    ]
+  }
+};
+
+// ── STORAGE ──
+function loadState(key, def) {
+  try { const v = localStorage.getItem('et26_'+key); return v ? JSON.parse(v) : def; } catch(e) { return def; }
+}
+function saveState(key, val) {
+  try { localStorage.setItem('et26_'+key, JSON.stringify(val)); } catch(e) {}
+}
+
+// ── COUNTDOWN ──
+function updateCountdown() {
+  const now = new Date();
+  const start = new Date('2026-11-14T06:30:00-03:00');
+  const diff = start - now;
+  const el = document.getElementById('countdown');
+  if (diff <= 0) { el.innerHTML = '<div class="cd-item"><div class="cd-num">🎉</div><div class="cd-label">Boa viagem!</div></div>'; return; }
+  const d = Math.floor(diff / 864e5);
+  const h = Math.floor((diff % 864e5) / 36e5);
+  const m = Math.floor((diff % 36e5) / 6e4);
+  el.innerHTML = `<div class="cd-item"><div class="cd-num">${d}</div><div class="cd-label">dias</div></div><div class="cd-item"><div class="cd-num">${h}</div><div class="cd-label">horas</div></div><div class="cd-item"><div class="cd-num">${m}</div><div class="cd-label">min</div></div>`;
+}
+
+// ── ROUTE STRIP ──
+function renderRoute() {
+  const el = document.getElementById('route-strip');
+  el.innerHTML = TRIP_DATA.cities.map((c, i) =>
+    `<div class="route-city"><div class="route-line"></div><div class="route-dot" style="border-color:${c.color}"></div><div class="route-name">${c.name}</div><div class="route-dates">${c.dates}</div></div>`
+  ).join('');
+}
+
+// ── ROTEIRO ──
+let checkedActivities = loadState('checks', {});
+
+function renderDayTabs() {
+  const tabs = document.getElementById('day-tabs');
+  const contents = document.getElementById('day-contents');
+  tabs.innerHTML = TRIP_DATA.days.map((d, i) =>
+    `<button class="day-tab${i===0?' active':''}" data-idx="${i}">${d.date}<br><span style="font-size:10px;opacity:.7">${d.dow}</span></button>`
+  ).join('');
+  contents.innerHTML = TRIP_DATA.days.map((d, i) => renderDay(d, i)).join('');
+  tabs.querySelectorAll('.day-tab').forEach(btn => {
+    btn.onclick = () => {
+      tabs.querySelectorAll('.day-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      contents.querySelectorAll('.day-content').forEach(c => c.classList.remove('active'));
+      document.getElementById('day-'+d_idx(btn)).classList.add('active');
+      btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    };
+  });
+}
+function d_idx(btn) { return btn.dataset.idx; }
+
+function renderDay(day, idx) {
+  let html = `<div class="day-content${idx===0?' active':''}" id="day-${idx}">`;
+  html += `<div class="day-header"><span class="day-badge" style="background:${day.color}">${day.city}</span><span class="day-title">${day.title}</span></div>`;
+  if (day.hotel) {
+    html += `<div class="hotel-card"><h4>🏨 ${day.hotel.name}</h4><p>${day.hotel.address}</p><p>Check-in ${day.hotel.checkin} · Check-out ${day.hotel.checkout}</p>${day.hotel.maps?`<a class="map-link" href="${day.hotel.maps}" target="_blank" rel="noopener">📍 Maps</a>`:''}</div>`;
+  }
+  day.alerts.forEach(a => { html += `<div class="alert-box">⚠️ ${a}</div>`; });
+  day.activities.forEach((act, ai) => {
+    const key = day.id + '_' + ai;
+    const ck = checkedActivities[key] ? ' checked' : '';
+    html += `<div class="activity${ck}" data-key="${key}">`;
+    html += `<button class="activity-check" onclick="toggleCheck('${key}', this)">✓</button>`;
+    html += `<div class="activity-body">`;
+    if (act.time) html += `<div class="activity-time">${act.time}</div>`;
+    html += `<div class="activity-name">${act.name}</div>`;
+    if (act.desc) html += `<div class="activity-desc">${act.desc}</div>`;
+    if (act.maps) html += `<div class="activity-links"><a class="map-link" href="${act.maps}" target="_blank" rel="noopener">📍 Maps</a></div>`;
+    html += `</div></div>`;
+  });
+  html += `</div>`;
+  return html;
+}
+
+function toggleCheck(key, btn) {
+  checkedActivities[key] = !checkedActivities[key];
+  saveState('checks', checkedActivities);
+  const card = btn.closest('.activity');
+  card.classList.toggle('checked', checkedActivities[key]);
+}
+
+// ── SEARCH ──
+document.getElementById('search-roteiro').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  const contents = document.getElementById('day-contents');
+  if (!q) {
+    contents.querySelectorAll('.activity').forEach(a => a.style.display = '');
+    contents.querySelectorAll('.day-content').forEach(d => d.style.display = '');
+    return;
+  }
+  TRIP_DATA.days.forEach((day, di) => {
+    const dayEl = document.getElementById('day-'+di);
+    let anyVisible = false;
+    dayEl.querySelectorAll('.activity').forEach((act, ai) => {
+      const a = day.activities[ai];
+      const text = (a.name + ' ' + a.desc + ' ' + (a.time||'')).toLowerCase();
+      const match = text.includes(q);
+      act.style.display = match ? '' : 'none';
+      if (match) anyVisible = true;
+    });
+    dayEl.style.display = anyVisible ? 'block' : 'none';
+    if (anyVisible) dayEl.classList.add('active');
+  });
+});
+
+// ── DOCS ──
+function renderDocs() {
+  const el = document.getElementById('docs-list');
+  el.innerHTML = TRIP_DATA.docs.map(g => {
+    let h = `<div class="doc-group"><h3>${g.icon} ${g.group}</h3>`;
+    g.items.forEach(item => {
+      const hasLink = item.link && item.link.length > 0;
+      h += `<div class="doc-item"><div class="doc-icon">${hasLink ? '✅' : '📄'}</div><div class="doc-info"><div class="name">${hasLink ? `<a href="${item.link}" target="_blank">${item.name}</a>` : item.name}</div><div class="status">${hasLink ? 'Link adicionado' : 'Aguardando link do Google Drive'}</div></div></div>`;
+    });
+    h += `</div>`;
+    return h;
+  }).join('');
+}
+
+// ── CITY INFO ──
+function renderCityInfo() {
+  const el = document.getElementById('city-info-list');
+  el.innerHTML = TRIP_DATA.cityInfo.map(c => `
+    <div class="city-card">
+      <h3><span class="city-flag">${c.flag}</span> ${c.name} <span style="font-size:13px;font-weight:400;color:var(--fg2)">(${c.cities})</span></h3>
+      <div class="info-grid">
+        <div class="info-item"><div class="info-label">Moeda</div>${c.currency}</div>
+        <div class="info-item"><div class="info-label">Fuso</div>${c.timezone}</div>
+        <div class="info-item"><div class="info-label">Emergência</div>${c.emergency}</div>
+        <div class="info-item"><div class="info-label">Idioma</div>${c.language}</div>
+        <div class="info-item"><div class="info-label">Transporte</div>${c.transport}</div>
+        <div class="info-item"><div class="info-label">Tomada</div>${c.voltage}</div>
+        <div class="info-item" style="grid-column:span 2"><div class="info-label">Gorjeta</div>${c.tip}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── CHECKLIST ──
+let checklistState = loadState('checklist', {});
+
+function renderChecklist() {
+  const el = document.getElementById('checklist-content');
+  const groups = [
+    { key: 'documentos', title: '📄 Documentos', items: TRIP_DATA.checklist.documentos },
+    { key: 'eletronicos', title: '🔌 Eletrônicos', items: TRIP_DATA.checklist.eletronicos }
+  ];
+  el.innerHTML = groups.map(g => {
+    let h = `<div class="checklist-group"><h3>${g.title}</h3>`;
+    g.items.forEach((item, i) => {
+      const k = g.key + '_' + i;
+      const done = checklistState[k] ? ' done' : '';
+      h += `<div class="check-item${done}" onclick="toggleChecklist('${k}', this)"><div class="check-box">✓</div><span class="check-text">${item}</span></div>`;
+    });
+    h += `</div>`;
+    return h;
+  }).join('');
+}
+
+function toggleChecklist(key, el) {
+  checklistState[key] = !checklistState[key];
+  saveState('checklist', checklistState);
+  el.classList.toggle('done', checklistState[key]);
+}
+
+// ── NAV ──
+document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.onclick = () => {
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('sec-' + btn.dataset.section).classList.add('active');
+    window.scrollTo(0, 0);
+  };
+});
+
+// ── INIT ──
+updateCountdown();
+setInterval(updateCountdown, 60000);
+renderRoute();
+renderDayTabs();
+renderDocs();
+renderCityInfo();
+renderChecklist();
+</script>
